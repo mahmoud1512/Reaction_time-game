@@ -37,7 +37,9 @@ export default {
         {
              clearInterval(this.timer);
              console.log(this.interval);
-             this.interval=0;    
+             this.$emit('done',this.interval)  
+             this.interval=0; 
+              
         }
     }
 

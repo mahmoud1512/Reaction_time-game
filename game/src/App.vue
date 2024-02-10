@@ -5,7 +5,8 @@
 
   <p id="motive">keep your concentration high</p>
   <button id="start" @click="start()" :disabled="this.playing" > start game </button>
-  <block v-if="this.playing" :del="delay" />
+  <block v-if="this.playing" :del="delay"  @done="endgame" />
+  <results   v-if="this.show"  :score="score"/>
 </div>
 
 
@@ -14,17 +15,22 @@
 
 <script>
 import block from './components/block.vue'
+import results from './components/results.vue'
 export default {
   name: 'App',
   data(){
     return{
       playing:false,
       delay:0,
+      score:null,
+      show:false
+
     }
   },
 
   components:{
-    block
+    block,
+    results
   },
   methods:
   {
@@ -32,8 +38,16 @@ export default {
     {
        this.delay=1000+Math.random()*7000
       this.playing=true;
+      this.show=false;
      
      // console.log(this.delay);
+    },
+    endgame(interval)
+    {
+        this.score=interval;
+        console.log(this.score)
+        this.playing=false;
+        this.show=true;
     }
   }
  
